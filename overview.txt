@@ -1,0 +1,5 @@
+- Preprocessor
+- Lexer
+- Parser
+- Assembler
+- Linker
