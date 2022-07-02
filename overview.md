@@ -13,5 +13,6 @@ Standard-compliant|X
 Bug-free|X
 Fast|X
 Optimized|X
+Helpful error messages|X
 Compiles a tiny subset of C into a barely-working binary|✓
 Portable|If I can be arsed

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.lit": "markdown",
+        "*.bfix": "xml",
+        "stdio.h": "c"
+    }
+}
