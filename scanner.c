@@ -11,7 +11,7 @@ void initScanner(char* source) {
 }
 
 static bool isAtEnd() {
-    return current == 0;
+    return *current == 0;
 }
 
 static char advance() {
