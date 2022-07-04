@@ -27,10 +27,10 @@ static char* names[] = {
 };
 
 char* readFile(char* fname) {
-    FILE* fp = fopen(fname, "rt");
+    FILE* fp = fopen(fname, "rb");
 
     fseek(fp, 0, SEEK_END);
-    int fileSize = ftell(fp);
+    size_t fileSize = ftell(fp);
     rewind(fp);
 
     char* out = malloc(fileSize + 1);
@@ -52,6 +52,8 @@ int main(int argc, char** argv) {
 
     char* buf = readFile(argv[1]);
 
+    printf("%s\n", buf);
+
     initScanner(buf);
 
     FILE* fp = fopen("toks.txt", "wt");
@@ -61,7 +63,7 @@ int main(int argc, char** argv) {
     for (t = scanNext(); t.type != TOK_EOF; t = scanNext()) {
         memcpy(writeBuf, t.start, t.length);
         writeBuf[t.length] = 0;
-        // printf("Text: '%s'\nScanned as: '%s'\n\n", printBuf, names[t.type]);
+        // printf("Text: '%s'\nScanned as: '%s'\n\n", writeBuf, names[t.type]);
         fprintf(fp, "%s\n", writeBuf);
     }
 
