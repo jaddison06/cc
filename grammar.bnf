@@ -6,7 +6,11 @@ declaration ::=
     funDecl |
     varDecl
 
-varDecl ::= ('int' | 'double' | 'float' | 'char' | 'bool') '*'? identifier ('[' number? ']')? '=' expression ';'
+varDecl ::=  type identifier ('[' number? ']')? ('=' expression)? ';'
+
+funDecl ::= type identifier '(' parameters? ')' block
+
+type ::= ('int' | 'double' | 'float' | 'char' | 'bool' | identifier) '*'*
 
 expression ::= assignment
 
@@ -72,7 +76,5 @@ memberAccess = '.' | '->'
 literal ::= 'true' | 'false' | number | character | string
 
 block ::= '{' (varDecl | statement)* '}'
-
-funDecl ::= identifier identifier '(' parameters? ')' block
 
 parameters ::= identifier (',' identifier)*

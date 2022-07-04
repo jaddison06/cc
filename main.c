@@ -14,22 +14,22 @@ static char* names[] = {
     "lparen","rparen","comma","dot","star",
     "slash","minus","plus","greater-than",
     "less-than","equals","hash","bang","pipe",
-    "caret","ampersand","modulo"
+    "caret","ampersand","modulo","tilde",
 
     "arrow", "plus-plus", "minus-minus", "star-equals",
     "slash-equals","minus-equals","plus-equals",
     "greater-than-equals","less-than-equals","equals-equals",
     "bang-equals","left-shift","right-shift","pipe-pipe",
     "ampersand-ampersand","pipe-equals","caret-equals","ampersand-equals",
-    "modulo-equals",
+    "modulo-equals","tilde-tilde",
 
     "left-shift-equals","right-shift-equals","ampersand-ampersand-equals",
     "pipe-pipe-equals",
 
     "true","false","string","char","number","identifier",
 
-    "bool","break","case","char","continue","do","double","else",
-    "enum","extern","float","for","if","int","return","sizeof",
+    "bool","break","case","char","continue","do","default","double",
+    "else","enum","extern","float","for","if","int","return","sizeof",
     "static","struct","switch","typedef","union","void","while",
 
     "semicolon","eof",
