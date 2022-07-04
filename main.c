@@ -13,12 +13,18 @@ static char* names[] = {
     "lbrace","rbrace","lsquare","rsquare",
     "lparen","rparen","comma","dot","star",
     "slash","minus","plus","greater-than",
-    "less-than","equals","hash","bang",
+    "less-than","equals","hash","bang","pipe",
+    "caret","ampersand","modulo"
 
     "arrow", "plus-plus", "minus-minus", "star-equals",
     "slash-equals","minus-equals","plus-equals",
     "greater-than-equals","less-than-equals","equals-equals",
-    "bang-equals",
+    "bang-equals","left-shift","right-shift","pipe-pipe",
+    "ampersand-ampersand","pipe-equals","caret-equals","ampersand-equals",
+    "modulo-equals",
+
+    "left-shift-equals","right-shift-equals","ampersand-ampersand-equals",
+    "pipe-pipe-equals",
 
     "true","false","string","char","number","identifier",
 

@@ -1,0 +1,78 @@
+file ::= preprocessor | declaration* EOF
+
+preprocessor ::= '#' identifier*
+
+declaration ::=
+    funDecl |
+    varDecl
+
+varDecl ::= ('int' | 'double' | 'float' | 'char' | 'bool') '*'? identifier ('[' number? ']')? '=' expression ';'
+
+expression ::= assignment
+
+assignment ::= ( (call memberAccess)? identifier ( ('=' | '+=' | '-=' | '/=' | '*=' | '%=' | '|=' | '&=' | '^=' | '>>=' | '<<=' | '||=' | '&&=') assignment) ) | ternary
+
+# what the fuck
+ternary ::= logic_or ('?' logic_or ':' logic_or)?
+
+logic_or ::= logic_and ('||' logic_and)?
+
+logic_and ::= bitwise_or ('&&' bitwise_or)?
+
+bitwise_or ::= bitwise_xor ('|' bitwise_xor)?
+
+bitwise_xor ::= bitwise_and ('^' bitwise_and)?
+
+bitwise_and ::= equality ('&' equality)?
+
+equality ::= comparison (('==' | '!=') comparison)?
+
+comparison ::= bitshift (('>' | '>=' | '<' | '<=') bitshift)?
+
+bitshift ::= term (('>>' | '<<') term)?
+
+term ::= factor (('+' | '-') factor)?
+
+factor ::= prefix (('*' | '/' | '%') prefix)?
+
+# RTL!!
+prefix ::= (('++' | '--' | '~~' | '-' | '~' | ('(' identifier ')') | '*' | '&' | 'sizeof')? prefix) | postfix
+
+postfix ::= call | (postfix ('++' | '--' | '~~' | ('[' number ']')))
+
+call ::= primary ( ('(' arguments? ')') | (memberAccess identifier) )*
+
+primary ::= identifier | literal | '(' expression ')')
+
+statement ::=
+    exprStmt |
+    forStmt |
+    ifStmt |
+    whileStmt |
+    doWhileStmt |
+    returnStmt |
+    switchStmt |
+    breakStmt |
+    continueStmt |
+    block
+
+exprStmt ::= expression ';'
+forStmt ::= 'for' (varDecl | exprStmt | ';') expression? ';' expression? ')' statement
+ifStmt ::= 'if' '(' expression ')' statement ('else' statement)?
+whileStmt ::= 'while' '(' expression ')' statement
+doWhileStmt ::= 'do' statement 'while' '(' expression ')' ';'
+returnStmt ::= 'return' expression? ';'
+switchStmt ::= 'switch' '(' expression ')' '{' case* '}'
+case ::= (('case' expression) | 'default') ':' statement
+breakStmt ::= 'break' ';'
+continueStmt ::= 'continue' ';'
+
+memberAccess = '.' | '->'
+
+literal ::= 'true' | 'false' | number | character | string
+
+block ::= '{' (varDecl | statement)* '}'
+
+funDecl ::= identifier identifier '(' parameters? ')' block
+
+parameters ::= identifier (',' identifier)*

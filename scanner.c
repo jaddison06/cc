@@ -117,8 +117,12 @@ static Token identifier() {
             if (current - start == 1 && start[1] == 'o')
                 return makeTok(TOK_DO);
             
-            if (current - start > 2)
-                return makeTok(checkKeyword(2, "ouble", TOK_DOUBLE));
+            if (current - start > 1) {
+                switch (start[1]) {
+                    case 'e': return makeTok(checkKeyword(2, "fault", TOK_DEFAULT));
+                    case 'o': return makeTok(checkKeyword(2, "uble", TOK_DOUBLE));
+                }
+            }
             
             break;
         case 'e':
@@ -233,6 +237,9 @@ Token scanNext() {
         case '/': return makeTok(
             match('=') ? TOK_SLASHEQ : TOK_SLASH
         );
+        case '%': return makeTok(
+            match('=') ? TOK_MODEQ : TOK_MOD
+        );
         case '+': return makeTok(
             match('=') ? TOK_PLUSEQ :
             match('+') ? TOK_PLUSPLUS : TOK_PLUS
@@ -242,17 +249,39 @@ Token scanNext() {
             match('-') ? TOK_MINUSMINUS :
             match('>') ? TOK_ARROW : TOK_MINUS
         );
+        case '~': return makeTok(
+            match('~') ? TOK_TILDETILDE : TOK_TILDE
+        );
         case '>': return makeTok(
-            match('=') ? TOK_GREATEREQ : TOK_GREATER
+            match('=') ? TOK_GREATEREQ :
+            match('>')
+                ? match('=') ? TOK_RSHIFTEQ : TOK_RSHIFT
+                : TOK_GREATER
         );
         case '<': return makeTok(
-            match('=') ? TOK_LESSEQ : TOK_LESS
+            match('=') ? TOK_LESSEQ :
+            match('<')
+                ? match('=') ? TOK_LSHIFTEQ : TOK_LSHIFT
+                : TOK_LESS
         );
         case '=': return makeTok(
             match('=') ? TOK_EQEQ : TOK_EQ
         );
         case '!': return makeTok(
             match('=') ? TOK_BANGEQ : TOK_BANG
+        );
+        case '^': return makeTok(
+            match('=') ? TOK_CARETEQ : TOK_CARET
+        );
+        case '|': return makeTok(
+            match('|')
+                ? match('=') ? TOK_PIPEPIPEEQ : TOK_PIPEPIPE
+                : match('=') ? TOK_PIPEEQ : TOK_PIPE
+        );
+        case '&': return makeTok(
+            match('&')
+                ? match('=') ? TOK_AMPAMPEQ : TOK_AMPAMP
+                : match('=') ? TOK_AMPEQ : TOK_AMP
         );
 
         case '\'': return character();
