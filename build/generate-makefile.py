@@ -31,7 +31,7 @@ SOURCE_EXTS = ['.c']
 HEADER_EXTS = ['.h']
 PYTHON = 'python'
 # If these files change, recompile EVERYTHING
-COMMON_DEPENDENCIES = []
+COMMON_DEPENDENCIES = ['common.h']
 
 def fs_util():
     match argv[1]:

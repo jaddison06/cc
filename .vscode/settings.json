@@ -2,6 +2,7 @@
     "files.associations": {
         "*.lit": "markdown",
         "*.bfix": "xml",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "common.h": "c"
     }
 }
