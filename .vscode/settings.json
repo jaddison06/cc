@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.lit": "markdown",
-        "*.bfix": "xml",
-        "stdio.h": "c",
-        "common.h": "c"
-    }
-}
