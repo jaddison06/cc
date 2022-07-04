@@ -4,3 +4,4 @@ cc
 cc.exe
 toks.txt
 .vscode/
+generated.h

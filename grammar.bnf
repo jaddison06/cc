@@ -12,6 +12,8 @@ funDecl ::= type identifier '(' parameters? ')' block
 
 type ::= ('int' | 'double' | 'float' | 'char' | 'bool' | identifier) '*'*
 
+parameters ::= type identifier (',' type identifier)*
+
 expression ::= assignment
 
 assignment ::= ( (call memberAccess)? identifier ( ('=' | '+=' | '-=' | '/=' | '*=' | '%=' | '|=' | '&=' | '^=' | '>>=' | '<<=' | '||=' | '&&=') assignment) ) | ternary
@@ -76,5 +78,3 @@ memberAccess = '.' | '->'
 literal ::= 'true' | 'false' | number | character | string
 
 block ::= '{' (varDecl | statement)* '}'
-
-parameters ::= identifier (',' identifier)*

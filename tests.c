@@ -6,6 +6,7 @@
 #include <stdbool.h>
 
 #include "scanner.h"
+#include "array.h"
 
 static char* module;
 
@@ -69,7 +70,43 @@ void testScanner() {
     expect(scanNext().type == TOK_EOF);
 }
 
+typedef struct {
+    int* start;
+    int capacity;
+    int length;
+} ArrayTest;
+
+void testArray() {
+    ArrayTest test = {
+        .start = malloc(sizeof(int)),
+        .capacity = 1,
+        .length = 0
+    };
+    int i = 3;
+    APPEND(test.start, i, test.length, test.capacity);
+    expect(test.length == 1);
+    expect(test.capacity == 1);
+    expect(test.start[0] == 3);
+    i = 10;
+    APPEND(test.start, i, test.length, test.capacity);
+    expect(test.length == 2);
+    expect(test.capacity == 2);
+    expect(test.start[0] == 3);
+    expect(test.start[1] == 10);
+    i = 6;
+    APPEND(test.start, i, test.length, test.capacity);
+    expect(test.length == 3);
+    expect(test.capacity == 4);
+    expect(test.start[0] == 3);
+    expect(test.start[1] == 10);
+    expect(test.start[2] == 6);
+    
+    free(test.start);
+}
+
 void testAll() {
     module = "scanner";
     testScanner();
+    module = "array";
+    testArray();
 }

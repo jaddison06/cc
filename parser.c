@@ -1,13 +1,9 @@
 #include "parser.h"
 
-#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "scanner.h"
-
-typedef struct {
-    Token typename;
-    int pointerDepth;
-} Type;
 
 static Token previous;
 static Token current;
@@ -49,7 +45,7 @@ static Type getType() {
         match(TOK_CHAR) |
         match(TOK_BOOL) |
         match(TOK_IDENTIFIER)
-    )) error('Expected a typename');
+    )) error("Expected a typename");
 
     Type out = {.typename = current, .pointerDepth = 0};
     while (match(TOK_STAR)) out.pointerDepth++;
@@ -59,7 +55,22 @@ static Type getType() {
 static void declaration() {
     Type type = getType();
     Token name = consume(TOK_IDENTIFIER, "Expected an identifier");
-    
+    if (match(TOK_LPAREN)) {
+        // function
+    } else {
+        // variable
+        if (match(TOK_LSQUARE)) {
+            // array
+        }
+        if (match(TOK_EQ)) {
+            // assignment
+        }
+        consume(TOK_SEMICOLON, "Expected semicolon after variable declaration");
+    }
+}
+
+static void preprocessor() {
+
 }
 
 void compile(char* source) {

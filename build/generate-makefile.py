@@ -32,6 +32,7 @@ HEADER_EXTS = ['.h']
 PYTHON = 'python'
 # If these files change, recompile EVERYTHING
 COMMON_DEPENDENCIES = ['common.h']
+CODEGEN_FILE = 'generated.h'
 
 def fs_util():
     match argv[1]:
@@ -88,11 +89,11 @@ def main():
     makefile = '.PHONY: makefile\n\n' \
     + makefile_item(
         'all',
-        objects,
+        ['codegen'] + objects,
         [f'{COMPILER} {" ".join(objects)} -o {executable}{libs_str}']
     ) + makefile_item(
         'debug',
-        debug_objects,
+        ['codegen'] + debug_objects,
         # -rdynamic allows glibc's backtrace functions to lookup symbol info
         # [f'{COMPILER} -g -rdynamic {" ".join(debug_objects)} -o {executable}{libs_str}']
         [f'{COMPILER} -g {" ".join(debug_objects)} -o {executable}{libs_str}']
@@ -105,6 +106,10 @@ def main():
         ['debug'],
         [f'./{executable}']
     ) + makefile_item(
+        'codegen',
+        [],
+        [f'{PYTHON} build/codegen.py {CODEGEN_FILE}']
+    ) + makefile_item(
         'makefile',
         [],
         [f'{PYTHON} build/generate-makefile.py']
@@ -113,7 +118,8 @@ def main():
         [],
         [
             fs_cmd('rm_dir', 'build/objects'),
-            fs_cmd('rm_file', executable)
+            fs_cmd('rm_file', executable),
+            fs_cmd('rm_file', CODEGEN_FILE)
         ]
     ) + makefile
 
