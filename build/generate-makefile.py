@@ -29,7 +29,7 @@ LIBS = []
 EXECUTABLE = 'cc'
 SOURCE_EXTS = ['.c']
 HEADER_EXTS = ['.h']
-PYTHON = 'python'
+PYTHON = 'python3'
 # If these files change, recompile EVERYTHING
 COMMON_DEPENDENCIES = ['common.h']
 CODEGEN_FILE = 'generated.h'

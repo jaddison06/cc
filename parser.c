@@ -73,7 +73,7 @@ static void preprocessor() {
 
 }
 
-void compile(char* source) {
+File compile(char* source) {
     initScanner(source);
 
     advance();
@@ -82,4 +82,8 @@ void compile(char* source) {
         if (match(TOK_HASH)) preprocessor();
         else declaration();
     }
+}
+
+void DestroyFile(File* file) {
+    
 }
