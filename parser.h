@@ -14,10 +14,7 @@ typedef struct {
     int pointerDepth;
 } Type;
 
-typedef struct {
-    Token* root;
-    int len, cap;
-} Preprocessor;
+DECL_VEC(Token, Preprocessor)
 
 typedef enum {
     EXPR_PREFIX,
@@ -51,10 +48,11 @@ typedef struct {
     Token field;
 } ExprGet;
 
+DECL_VEC(Expression, Arguments)
+
 typedef struct {
     Expression* callable;
-    Expression* argsRoot;
-    int argsLen, argsCap;
+    Arguments arguments;
 } ExprCall;
 
 struct Expression {
@@ -88,10 +86,7 @@ typedef struct {
     };
 } BlockElement;
 
-typedef struct {
-    BlockElement* root;
-    int len, cap;
-} Block;
+DECL_VEC(BlockElement, Block)
 
 typedef enum {
     FOR_DECL,
@@ -134,10 +129,7 @@ typedef struct {
     Statement* body;
 } SwitchBranch;
 
-typedef struct {
-    SwitchBranch* root;
-    int len, cap;
-} StmtSwitch;
+DECL_VEC(SwitchBranch, StmtSwitch)
 
 typedef enum {
     STMT_EXPR,

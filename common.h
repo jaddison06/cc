@@ -2,4 +2,4 @@
 
 #include <stdbool.h>
 
-#define CC_RUN_TESTS true
+#define CC_RUN_TESTS false
