@@ -19,10 +19,11 @@ typedef enum {
     EXPR_POSTFIX,
     EXPR_BINARY,
     EXPR_TERNARY,
+    EXPR_GET,
     EXPR_CALL
 } ExpressionType;
 
-// all expression subtypes use Expression for operand,
+// all expression subtypes use Expression for operands etc,
 // assuming that the parser will sort out precedence
 
 typedef struct {
@@ -41,8 +42,14 @@ typedef struct {
 } ExprTernary;
 
 typedef struct {
+    Expression object;
+    Token field;
+} ExprGet;
+
+typedef struct {
     Expression callable;
-    
+    Expression* argsRoot;
+    int argsLen, argsCap;
 } ExprCall;
 
 typedef struct {
@@ -52,6 +59,7 @@ typedef struct {
         ExprBinary binary;
         ExprTernary ternary;
         ExprCall call;
+        ExprGet get;
     };
 } Expression;
 
