@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "scanner.h"
+#include "array.h"
 
 // forward decl >:(
 typedef struct Expression Expression;
@@ -201,10 +202,9 @@ typedef struct {
     };
 } TopLevel;
 
-typedef struct {
-    TopLevel* root;
-    int len, cap;
-} File;
+
+ARRAYTYPE(TopLevel);
+typedef TopLevel_Vector File;
 
 File compile(char* source);
 void DestroyFile(File* file);

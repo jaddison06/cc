@@ -71,37 +71,33 @@ void testScanner() {
 }
 
 typedef struct {
-    int* start;
-    int capacity;
-    int length;
+    int* root;
+    int len, cap;
 } ArrayTest;
 
 void testArray() {
-    ArrayTest test = {
-        .start = malloc(sizeof(int)),
-        .capacity = 1,
-        .length = 0
-    };
+    ArrayTest test;
+    INIT(test, int);
     int i = 3;
-    APPEND(test.start, i, test.length, test.capacity);
-    expect(test.length == 1);
-    expect(test.capacity == 1);
-    expect(test.start[0] == 3);
+    APPEND(test.root, i, test.len, test.cap);
+    expect(test.len == 1);
+    expect(test.cap == 1);
+    expect(test.root[0] == 3);
     i = 10;
-    APPEND(test.start, i, test.length, test.capacity);
-    expect(test.length == 2);
-    expect(test.capacity == 2);
-    expect(test.start[0] == 3);
-    expect(test.start[1] == 10);
+    APPEND(test.root, i, test.len, test.cap);
+    expect(test.len == 2);
+    expect(test.cap == 2);
+    expect(test.root[0] == 3);
+    expect(test.root[1] == 10);
     i = 6;
-    APPEND(test.start, i, test.length, test.capacity);
-    expect(test.length == 3);
-    expect(test.capacity == 4);
-    expect(test.start[0] == 3);
-    expect(test.start[1] == 10);
-    expect(test.start[2] == 6);
+    APPEND(test.root, i, test.len, test.cap);
+    expect(test.len == 3);
+    expect(test.cap == 4);
+    expect(test.root[0] == 3);
+    expect(test.root[1] == 10);
+    expect(test.root[2] == 6);
     
-    free(test.start);
+    free(test.root);
 }
 
 void testAll() {
