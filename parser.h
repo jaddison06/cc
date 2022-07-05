@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 #include "scanner.h"
-#include "array.h"
+#include "vector.h"
 
 // forward decl >:(
 typedef struct Expression Expression;
@@ -166,13 +166,13 @@ struct Statement {
     };
 };
 
+DECL_VEC(struct {Type type; Token name;}, ParamList)
+
 typedef struct {
     Type type;
     Token name;
     // assume every param is named
-    Type* paramTypes;
-    Token* paramNames;
-    int paramsLen, paramsCap;
+    ParamList params;
     Block contents;
 } FunctionDecl;
 
@@ -203,8 +203,7 @@ typedef struct {
 } TopLevel;
 
 
-ARRAYTYPE(TopLevel);
-typedef TopLevel_Vector File;
+DECL_VEC(TopLevel, File);
 
 File compile(char* source);
 void DestroyFile(File* file);
