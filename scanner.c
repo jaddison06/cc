@@ -10,7 +10,7 @@ void initScanner(char* source) {
     start = current = source;
 }
 
-static bool isAtEnd() {
+bool isAtEnd() {
     return *current == 0;
 }
 

@@ -34,3 +34,4 @@ typedef struct {
 
 void initScanner(char* source);
 Token scanNext();
+bool isAtEnd();

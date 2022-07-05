@@ -27,3 +27,4 @@ Syntax | Description
 &&= | What the fuck do you think it does
 &#x7c;&#x7c;= | See above
 bool, true, false | Boolean keywords built into the syntax
+Single-line function bodies | Function body doesn't have to be encased with {}

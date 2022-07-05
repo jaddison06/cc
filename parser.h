@@ -23,7 +23,7 @@ typedef enum {
     EXPR_TERNARY,
     EXPR_GET,
     EXPR_CALL
-} ExpressionType;
+} ExpressionTag;
 
 // all expression subtypes use Expression for operands etc,
 // assuming that the parser will sort out precedence
@@ -56,7 +56,7 @@ typedef struct {
 } ExprCall;
 
 struct Expression {
-    ExpressionType type;
+    ExpressionTag tag;
     union {
         ExprUnary unary;
         ExprBinary binary;
@@ -79,7 +79,7 @@ typedef enum {
 } BlockElemType;
 
 typedef struct {
-    BlockElemType type;
+    BlockElemType tag;
     union {
         VarDecl varDecl;
         Statement* statement;
@@ -95,7 +95,7 @@ typedef enum {
 } ForExprInitType;
 
 typedef struct {
-    ForExprInitType initType;
+    ForExprInitType initTag;
     union {
         VarDecl initDecl;
         Expression initExpr;
@@ -142,10 +142,10 @@ typedef enum {
     STMT_BREAK,
     STMT_CONTINUE,
     STMT_BLOCK
-} StmtType;
+} StmtTag;
 
 struct Statement {
-    StmtType type;
+    StmtTag tag;
     union {
         Expression expr;
         StmtFor for_;
@@ -158,36 +158,47 @@ struct Statement {
     };
 };
 
-DECL_VEC(struct {Type type; Token name;}, ParamList)
+typedef struct {
+    Type type;
+    Token name;
+} Param;
+DECL_VEC(Param, ParamList);
 
 typedef struct {
     Type type;
     Token name;
     // assume every param is named
     ParamList params;
-    Block contents;
+    Statement body;
 } FunctionDecl;
 
 typedef enum {
     DECL_FUN,
     DECL_VAR
-} DeclType;
+} DeclTag;
 
 typedef struct {
-    DeclType type;
+    DeclTag tag;
     union {
         FunctionDecl fun;
         VarDecl var;
+        //* risky - i'm like 75% sure that this'll let you set both,
+        //* because FunctionDecl and VarDecl have type & name as their
+        //* first members
+        struct {
+            Type type;
+            Token name;
+        };
     };
 } Declaration;
 
 typedef enum {
     TOP_PP, // preprocessor
     TOP_DECL
-} TopLevelType;
+} TopLevelTag;
 
 typedef struct {
-    TopLevelType type;
+    TopLevelTag tag;
     union {
         Preprocessor preprocessor;
         Declaration declaration;
